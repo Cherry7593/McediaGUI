@@ -1,0 +1,23 @@
+# McediaGUI 配置文件
+
+# 是否启用
+enabled: true
+
+# 播放器名称前缀
+player-name-prefix: "mcedia"
+
+# 默认缩放
+default-scale: 1.0
+
+# 默认音量 (0-200)
+default-volume: 100
+
+# 最大播放器数量
+max-players: 50
+
+# 触发物品 (空=空手, 示例: STICK)
+trigger-item: ""
+
+# 消息配置
+messages:
+  prefix: "&6[McediaGUI]&r "

@@ -1,0 +1,30 @@
+name: McediaGUI
+version: ${version}
+main: org.mcediagui.McediaGUIPlugin
+api-version: "1.20"
+folia-supported: true
+description: Minecraft 视频播放器插件
+author: Zvbj
+website: https://github.com/Cherry7593/McediaGUI
+
+commands:
+  mcedia:
+    description: McediaGUI 管理命令
+    usage: /<command> [create|list|delete|scan|gui|reload|help]
+
+permissions:
+  mcedia.use:
+    description: 蹲下右键编辑播放器
+    default: true
+  mcedia.admin:
+    description: 管理界面和列表
+    default: op
+  mcedia.create:
+    description: 创建播放器
+    default: op
+  mcedia.delete:
+    description: 删除播放器
+    default: op
+  mcedia.reload:
+    description: 重载配置
+    default: op
