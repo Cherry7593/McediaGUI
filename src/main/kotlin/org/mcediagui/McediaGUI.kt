@@ -138,6 +138,7 @@ class McediaGUI(private val plugin: JavaPlugin, private val manager: McediaManag
                     21 -> { val id = manager.saveAsTemplate(player.uniqueId, mp); player.sendMessage(if (id != null) "§a保存模板#$id" else "§c模板已满"); openPlayerEdit(player, mp) }
                     23 -> openPlayerList(player); 25 -> openConfirmDelete(player, mp)
                     in 28..34 -> { val tid = slot - 27; manager.getTemplates(player.uniqueId).find { it.id == tid }?.let { t -> if (right) { manager.deleteTemplate(player.uniqueId, tid); player.sendMessage("§c删除模板") } else { manager.applyTemplate(uuid, t); player.sendMessage("§a应用模板") }; openPlayerEdit(player, manager.getPlayer(uuid)!!) } }
+                    else -> {}
                 }
             }}
             GUIType.VIDEO_SELECT -> when (slot) { 27 -> holder.editingPlayerUUID?.let { manager.getPlayer(it) }?.let { openPlayerEdit(player, it) }; 10,12,14,16 -> { player.closeInventory(); player.sendMessage("§7输入视频链接:"); playerGUIState[player.uniqueId] = GUIState(GUIType.VIDEO_SELECT, editingPlayerUUID = holder.editingPlayerUUID, tempData = mutableMapOf("awaiting_input" to "video_url")) } }
