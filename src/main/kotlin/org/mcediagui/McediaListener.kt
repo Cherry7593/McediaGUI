@@ -34,9 +34,23 @@ class McediaListener(
             val canTrigger = if (triggerItem == null) itemInHand.type.isAir else itemInHand.type == triggerItem
             if (!canTrigger) return
             event.isCancelled = true
-            manager.getPlayer(entity.uniqueId)?.let { p ->
-                event.player.scheduler.run(plugin, { _ -> gui.openPlayerEdit(event.player, p) }, null)
+            
+            var mcediaPlayer = manager.getPlayer(entity.uniqueId)
+            
+            // 如果不在缓存中，尝试自动注册（支持手动放置书本召唤的盔甲架）
+            if (mcediaPlayer == null) {
+                val playerName = customName.removePrefix("$prefix:").ifEmpty { customName }
+                mcediaPlayer = McediaPlayer(
+                    uuid = entity.uniqueId,
+                    name = playerName,
+                    location = entity.location,
+                    createdBy = event.player.uniqueId
+                )
+                manager.addPlayer(mcediaPlayer)
+                event.player.sendMessage("§6[Mcedia] §a已自动记录播放器: §f$playerName")
             }
+            
+            event.player.scheduler.run(plugin, { _ -> gui.openPlayerEdit(event.player, mcediaPlayer) }, null)
         }
     }
 
