@@ -153,6 +153,17 @@ class McediaManager(private val plugin: JavaPlugin) {
 
     fun getPlayer(uuid: UUID): McediaPlayer? = players[uuid]
     fun getAllPlayers(): List<McediaPlayer> = players.values.toList()
+    
+    /**
+     * 添加播放器到缓存并保存到数据库（用于手动放置的播放器自动注册）
+     */
+    fun addPlayer(player: McediaPlayer): Boolean {
+        if (!enabled || players.size >= maxPlayers) return false
+        if (players.containsKey(player.uuid)) return false
+        players[player.uuid] = player
+        storage?.save(player)
+        return true
+    }
     fun findPlayerByName(name: String): McediaPlayer? = players.values.find { it.name.equals(name, ignoreCase = true) }
     fun scanExistingPlayers() {
         Bukkit.getWorlds().forEach { world ->
